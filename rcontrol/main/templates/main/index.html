@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="turn-on-103">192.168.0.103 ON</button>
+    <br>
+    <button id="turn-off-103">192.168.0.103 OFF</button>
+    <br><br>
+
+    <button id="turn-on-106">192.168.0.106 ON</button>
+    <br>
+    <button id="turn-off-106">192.168.0.106 OFF</button>
+
+    <div id="response"></div>
+
+    <script>
+        $(document).ready(function() {
+            function sendCommand(ip, command) {
+                $.ajax({
+                    url: "{% url 'sender' ip='__IP__' command='__COMMAND__' %}".replace('__IP__', ip).replace('__COMMAND__', command),
+                    method: "GET",
+                    success: function(data) {
+                        $('#response').html("<p>Response: " + data.response + "</p>");
+                    },
+                    error: function(xhr, status, error) {
+                        $('#response').html("<p>Error: " + error + "</p>");
+                    }
+                });
+            }
+
+            $('#turn-on-103').click(function() {
+                sendCommand('192.168.0.103', 'lumos');
+            });
+
+            $('#turn-off-103').click(function() {
+                sendCommand('192.168.0.103', 'nox');
+            });
+
+            $('#turn-on-106').click(function() {
+                sendCommand('192.168.0.106', 'lumos');
+            });
+
+            $('#turn-off-106').click(function() {
+                sendCommand('192.168.0.106', 'nox');
+            });
+        });
+    </script>
+</body>
+</html>
