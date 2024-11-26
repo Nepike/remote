@@ -2,8 +2,8 @@
 #include <ESP8266WebServer.h>
 
 // Замените на свои данные Wi-Fi
-const char* ssid = "Nepike";
-const char* password = "123453119670";
+const char* ssid = "Nopike";
+const char* password = "1111111111";
 
 ESP8266WebServer server(80);
 IPAddress localIp;
